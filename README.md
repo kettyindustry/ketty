@@ -1,4 +1,4 @@
-# ![](docs/beach.svg) ketty
+# ![](docs/beach.png) ketty
 
 ketty is fully asynchronous framework for creating mass scanner for specific services. Written in Kotlin/Multiplatform.
 
