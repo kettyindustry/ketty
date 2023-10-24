@@ -5,7 +5,7 @@ arrayOf("core", "mock").forEach { name ->
     project(":ketty-http-client-$name").projectDir = rootDir.resolve("ketty-http-client").resolve(name)
 }
 
-arrayOf("core").forEach { name ->
+arrayOf("core", "mock").forEach { name ->
     include(":ketty-module-$name")
     project(":ketty-module-$name").projectDir = rootDir.resolve("ketty-module").resolve(name)
 }
