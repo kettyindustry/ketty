@@ -8,10 +8,6 @@ ketty is fully asynchronous framework for creating mass scanner for specific ser
 
 The ketty pipeline is using Kotlin coroutines to provide easy-to-use asynchronous programming model.
 
-## Inspirations
-
-ketty is inspired from Ktor
-
 ## Contribution
 
 You can contribute in the following ways:
