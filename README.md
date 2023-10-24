@@ -1,12 +1,6 @@
 # ![](docs/beach.svg) ketty
 
-ketty is fully asynchronous framework for creating mass scanner for specific services (ssh, ftp, http). Written in Kotlin/Multiplatform.
-
-## Protocols
-
-* HTTP(s)
-* SSH
-* FTP
+ketty is fully asynchronous framework for creating mass scanner for specific services. Written in Kotlin/Multiplatform.
 
 ## Principles
 
