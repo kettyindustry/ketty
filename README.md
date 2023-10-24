@@ -18,8 +18,23 @@ You can contribute in the following ways:
 
 * Code
 * Documentation
-* Community Support
 * Feedback/Issue reports
+
+### Code
+
+#### Style guides
+
+* Your code must follow [kotlin code conventions](https://kotlinlang.org/docs/coding-conventions.html)
+* Every type must be documented
+
+#### Commit messages
+
+* Commit messages must be written in English.
+* They should be prefixed ("fix:" for a fix, "feature:" for a new feature)
+
+### Documentation
+
+Documentation must be written in English.
 
 ### Feedback/Issue reports
 
