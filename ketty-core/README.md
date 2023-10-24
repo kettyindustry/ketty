@@ -5,10 +5,11 @@ It manages the parallel processing and handling of module errors.
 
 ## Usage
 
-As soon as a item is emitted, ketty will immediately start.
+As soon as an item is emitted, ketty will immediately start.
 
 ```kotlin
-val items: Flow<Item> = ...
+val module = ... // see ketty-module
+val items: Flow<Item> = ... // consider channelFlow
 val ketty = Ketty(concurrent = 100)
 
 // Send all items to ketty
@@ -18,7 +19,7 @@ launch {
 
 // Receive all check results from ketty
 launch {
-    ketty.codeSharedFlow.collect { (item, code) ->
+    ketty.checksSharedFlow.collect { (item, code) ->
         println("$item : $code")
     }
 }
