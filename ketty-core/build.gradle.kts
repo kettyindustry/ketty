@@ -3,7 +3,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":ketty-module-core"))
-                implementation(project(":ketty-core"))
+                implementation(project(":ketty-http-client-core"))
             }
         }
     }

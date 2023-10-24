@@ -10,6 +10,8 @@ arrayOf("core").forEach { name ->
     project(":ketty-module-$name").projectDir = rootDir.resolve("ketty-module").resolve(name)
 }
 
+include(":ketty-core")
+
 arrayOf("cli").forEach { name ->
     include(":ketty-ui-$name")
     project(":ketty-ui-$name").projectDir = rootDir.resolve("ketty-ui").resolve(name)
