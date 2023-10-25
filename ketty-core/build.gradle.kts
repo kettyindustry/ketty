@@ -4,7 +4,6 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(project(":ketty-module-core"))
-                implementation(project(":ketty-http-client-core"))
             }
         }
         commonTest {
