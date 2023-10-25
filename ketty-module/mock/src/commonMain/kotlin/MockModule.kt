@@ -9,6 +9,9 @@ import io.ketty.module.core.Module
  * @param [action] - Handle an [Item] and returns the expected [CheckCode]
  */
 class MockModule(val action: (item: Item) -> CheckCode) : Module {
+    override val name: String = "Mock"
+    override val description: String = "Mock module results using a callback"
+
     /**
      * Invoke [action]
      */

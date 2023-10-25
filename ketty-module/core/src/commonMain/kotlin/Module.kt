@@ -8,6 +8,16 @@ import kotlin.coroutines.cancellation.CancellationException
  */
 interface Module {
     /**
+     * The display name of the module
+     */
+    val name: String
+
+    /**
+     * Describes the behavior of the module
+     */
+    val description: String
+
+    /**
      * Verifies if [item] is exploitable
      * @param [item] [Item] The targeted item
      * @return [CheckCode] Check code of [item]

@@ -63,14 +63,20 @@ class KettyTest {
     }
 
     private data class SuccessModule(private val checkCode: CheckCode) : Module {
+        override val name: String = "Success"
+        override val description: String = "Always returns the same check code"
         override suspend fun check(item: Item): CheckCode = checkCode
     }
 
     private data class FailureModule(private val cause: Throwable) : Module {
+        override val name: String = "Failure"
+        override val description: String = "Always throws a throwable."
         override suspend fun check(item: Item): CheckCode = throw cause
     }
 
     private data class ItemIntegrityModule(private val expectedItem: Item, private val innerModule: Module) : Module {
+        override val name: String = "Item integrity"
+        override val description: String = "Ensure that the checked item is equal to a item"
         override suspend fun check(item: Item): CheckCode {
             assertEquals(this.expectedItem, item)
             return innerModule.check(item)
