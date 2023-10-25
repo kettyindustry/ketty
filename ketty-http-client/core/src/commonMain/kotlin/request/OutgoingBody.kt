@@ -10,13 +10,13 @@ sealed class OutgoingBody {
     data object Empty : OutgoingBody()
 
     /**
-     * The incoming body is represented as a [String]
+     * The incoming body is represented as a [ByteArray]
      */
-    abstract class Text : OutgoingBody() {
+    abstract class Binary : OutgoingBody() {
         /**
-         * Get request body as [String]
+         * Get request body as [ByteArray]
          * @return The request body
          */
-        abstract fun text(): String
+        abstract fun bytes(): ByteArray
     }
 }
