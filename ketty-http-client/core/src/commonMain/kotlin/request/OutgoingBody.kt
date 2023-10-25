@@ -17,6 +17,6 @@ sealed class OutgoingBody {
          * Get request body as [String]
          * @return The request body
          */
-        abstract suspend fun text(): String
+        abstract fun text(): String
     }
 }
