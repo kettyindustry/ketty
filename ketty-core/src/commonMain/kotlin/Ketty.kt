@@ -58,6 +58,7 @@ class Ketty(
         while (true) {
             val received = itemsReceived.value
             val processed = itemsProcessed.value
+            check(received >= processed) { "Processed more items than expected" }
 
             if (received == processed) {
                 break
