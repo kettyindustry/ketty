@@ -3,7 +3,10 @@ package io.ketty.core
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
 import io.ketty.module.core.ItemUnsupportedException
-import io.ketty.module.core.Module
+import io.ketty.module.test.FailureModule
+import io.ketty.module.test.ItemIntegrityModule
+import io.ketty.module.test.SuccessModule
+import io.ketty.module.test.UrlItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
@@ -14,7 +17,7 @@ import kotlin.test.fail
 class KettyTest {
     @Test
     fun `integrity with only success`() = runTest {
-        val expectedItem: Item = Url("testing")
+        val expectedItem: Item = UrlItem("testing")
         val expectedCode = CheckCode.SAFE
         var successCount = 0
 
@@ -36,7 +39,7 @@ class KettyTest {
 
     @Test
     fun `integrity with only errors`() = runTest {
-        val expectedItem: Item = Url("testing")
+        val expectedItem: Item = UrlItem("testing")
         val expectedCause = ItemUnsupportedException("x")
         var errorCount = 0
 
@@ -60,30 +63,5 @@ class KettyTest {
         repeat(times) {
             emit(item)
         }
-    }
-
-    private data class SuccessModule(private val checkCode: CheckCode) : Module {
-        override val name: String = "Success"
-        override val description: String = "Always returns the same check code"
-        override suspend fun check(item: Item): CheckCode = checkCode
-    }
-
-    private data class FailureModule(private val cause: Throwable) : Module {
-        override val name: String = "Failure"
-        override val description: String = "Always throws a throwable."
-        override suspend fun check(item: Item): CheckCode = throw cause
-    }
-
-    private data class ItemIntegrityModule(private val expectedItem: Item, private val innerModule: Module) : Module {
-        override val name: String = "Item integrity"
-        override val description: String = "Ensure that the checked item is equal to a item"
-        override suspend fun check(item: Item): CheckCode {
-            assertEquals(this.expectedItem, item)
-            return innerModule.check(item)
-        }
-    }
-
-    private data class Url(val url: String) : Item.Http() {
-        override suspend fun url(): String = url
     }
 }
