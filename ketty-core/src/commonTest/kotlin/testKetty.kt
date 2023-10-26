@@ -3,10 +3,12 @@ package io.ketty.core
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
 import io.ketty.module.core.Module
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 suspend fun testKetty(
     module: Module,
@@ -20,14 +22,18 @@ suspend fun testKetty(
     // Handle successes
     val successJob = launch {
         for ((item, code) in ketty.checkCodes) {
-            successHandler(item, code)
+            withContext(NonCancellable) {
+                successHandler(item, code)
+            }
         }
     }
 
     // Handle failures
     val failureJob = launch {
         for ((item, exception) in ketty.checkErrors) {
-            failureHandler(item, exception)
+            withContext(NonCancellable) {
+                failureHandler(item, exception)
+            }
         }
     }
 
