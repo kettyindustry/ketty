@@ -2,20 +2,20 @@ package io.ketty.core
 
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
-import io.ketty.module.core.ItemVisitor
+import io.ketty.module.core.Module
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 suspend fun testKetty(
-    itemVisitor: ItemVisitor,
+    module: Module,
     items: Flow<Item>,
     successHandler: (item: Item, checkCode: CheckCode) -> Unit,
     failureHandler: (item: Item, exception: Throwable) -> Unit
 ) = coroutineScope {
     // Create ketty
-    val ketty: KettySpecifications = Ketty(itemVisitor, 10)
+    val ketty: KettySpecifications = Ketty(module, 10)
 
     // Handle successes
     val successJob = launch {
