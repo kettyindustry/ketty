@@ -2,13 +2,13 @@ package io.ketty.module.mock
 
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
-import io.ketty.module.core.Module
+import io.ketty.module.core.ItemVisitor
 
 /**
- * [Module] for writing tests without a specific implementation
+ * [ItemVisitor] for writing tests without a specific implementation
  * @param [action] - Handle an [Item] and returns the expected [CheckCode]
  */
-class MockModule(val action: (item: Item) -> CheckCode) : Module {
+class MockItemVisitor(val action: (item: Item) -> CheckCode) : ItemVisitor {
     override val name: String = "Mock"
     override val description: String = "Mock module results using a callback"
 

@@ -2,7 +2,7 @@ package io.ketty.core
 
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
-import io.ketty.module.core.Module
+import io.ketty.module.core.ItemVisitor
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -19,9 +19,9 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 class Ketty(
-    private val module: Module, private val concurrent: Int = 1, parentContext: CoroutineContext = EmptyCoroutineContext
+    private val itemVisitor: ItemVisitor, private val concurrent: Int = 1, parentContext: CoroutineContext = EmptyCoroutineContext
 ) : KettySpecifications,
-    CoroutineScope by CoroutineScope(parentContext + Job() + CoroutineName("ModuleKetty($module, $concurrent)")) {
+    CoroutineScope by CoroutineScope(parentContext + Job() + CoroutineName("ModuleKetty($itemVisitor, $concurrent)")) {
     private val semaphore = Semaphore(concurrent)
 
     private val itemsReceived = MutableStateFlow(0L)
@@ -42,7 +42,7 @@ class Ketty(
 
             launch {
                 try {
-                    val checkCode = module.check(item)
+                    val checkCode = itemVisitor.check(item)
                     _checkCodeChannel.send(item to checkCode)
                 } catch (exception: Throwable) {
                     _checkErrorChannel.send(item to exception)

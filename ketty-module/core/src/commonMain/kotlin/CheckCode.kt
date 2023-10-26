@@ -1,7 +1,7 @@
 package io.ketty.module.core
 
 /**
- * Various check codes returned from the [Module.check] routine
+ * Various check codes returned from the [ItemVisitor.check] routine
  */
 enum class CheckCode {
     /**

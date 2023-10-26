@@ -6,7 +6,7 @@ import kotlin.coroutines.cancellation.CancellationException
  * Serves as the base interface for all modules.
  * It provides a common interface for interacting with modules at the most basic level.
  */
-interface Module {
+interface ItemVisitor {
     /**
      * The display name of the module
      */

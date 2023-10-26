@@ -17,7 +17,7 @@ class MockModuleTest {
     @Test
     fun integrity() = runTest {
         val item: Item = Url("testing")
-        val module = MockModule {
+        val module = MockItemVisitor {
             assertEquals(item, it, "item mismatch")
             CheckCode.SAFE
         }
@@ -31,7 +31,7 @@ class MockModuleTest {
     @Test
     fun once() = runTest {
         var called = false
-        val module = MockModule {
+        val module = MockItemVisitor {
             assertFalse(called, "module called twice")
             called = true
             CheckCode.SAFE
@@ -47,7 +47,7 @@ class MockModuleTest {
     @Test
     fun `once with error`() = runTest {
         var called = false
-        val module = MockModule {
+        val module = MockItemVisitor {
             assertFalse(called, "module called twice")
             called = true
             throw ItemUnsupportedException("x")

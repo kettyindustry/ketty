@@ -3,7 +3,7 @@ package io.ketty.core
 import io.ketty.module.core.CheckCode
 import io.ketty.module.core.Item
 import io.ketty.module.core.ItemUnsupportedException
-import io.ketty.module.core.Module
+import io.ketty.module.core.ItemVisitor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
@@ -19,7 +19,7 @@ class KettyTest {
         var successCount = 0
 
         testKetty(
-            ItemIntegrityModule(expectedItem, SuccessModule(expectedCode)),
+            ItemIntegrityItemVisitor(expectedItem, SuccessItemVisitor(expectedCode)),
             generateFlow(10_000, expectedItem),
             successHandler = { item, code ->
                 assertEquals(expectedItem, item, "item mismatch")
@@ -41,7 +41,7 @@ class KettyTest {
         var errorCount = 0
 
         testKetty(
-            ItemIntegrityModule(expectedItem, FailureModule(expectedCause)),
+            ItemIntegrityItemVisitor(expectedItem, FailureItemVisitor(expectedCause)),
             generateFlow(10_000, expectedItem),
             successHandler = { _, _ ->
                 fail("should not succeed")
@@ -62,24 +62,24 @@ class KettyTest {
         }
     }
 
-    private data class SuccessModule(private val checkCode: CheckCode) : Module {
+    private data class SuccessItemVisitor(private val checkCode: CheckCode) : ItemVisitor {
         override val name: String = "Success"
         override val description: String = "Always returns the same check code"
         override suspend fun check(item: Item): CheckCode = checkCode
     }
 
-    private data class FailureModule(private val cause: Throwable) : Module {
+    private data class FailureItemVisitor(private val cause: Throwable) : ItemVisitor {
         override val name: String = "Failure"
         override val description: String = "Always throws a throwable."
         override suspend fun check(item: Item): CheckCode = throw cause
     }
 
-    private data class ItemIntegrityModule(private val expectedItem: Item, private val innerModule: Module) : Module {
+    private data class ItemIntegrityItemVisitor(private val expectedItem: Item, private val innerItemVisitor: ItemVisitor) : ItemVisitor {
         override val name: String = "Item integrity"
         override val description: String = "Ensure that the checked item is equal to a item"
         override suspend fun check(item: Item): CheckCode {
             assertEquals(this.expectedItem, item)
-            return innerModule.check(item)
+            return innerItemVisitor.check(item)
         }
     }
 
