@@ -1,5 +1,6 @@
 package io.ketty.http.client.core
 
+import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,4 +16,10 @@ interface HttpResponse : HttpCloseable {
      * Receive headers in a [Flow]
      */
     suspend fun headers(): Flow<Pair<String, String>>
+
+    /**
+     * Receive body as a [ByteReadChannel]
+     * @return [ByteReadChannel] - Channel to read the response body
+     */
+    suspend fun body(): ByteReadChannel
 }
