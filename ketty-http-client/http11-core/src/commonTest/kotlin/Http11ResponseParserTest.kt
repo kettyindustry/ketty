@@ -2,6 +2,7 @@ package io.ketty.http.client.http11.core
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertNull
 
 class Http11ResponseParserTest {
@@ -23,33 +24,35 @@ class Http11ResponseParserTest {
 
     @Test
     fun `parse header but empty line`() {
-        assertNull(parser.readHeader(""))
+        assertFails {
+            parser.readHeader("")
+        }
     }
 
     @Test
     fun `parse header`() {
-        val (name, value) = parser.readHeader("Content-Type:application/json")!!
+        val (name, value) = parser.readHeader("Content-Type:application/json")
         assertEquals("Content-Type", name)
         assertEquals("application/json", value)
     }
 
     @Test
     fun `parse header with starting space`() {
-        val (name, value) = parser.readHeader("Content-Type: application/json")!!
+        val (name, value) = parser.readHeader("Content-Type: application/json")
         assertEquals("Content-Type", name)
         assertEquals("application/json", value)
     }
 
     @Test
     fun `parse multi-line header with space`() {
-        val (name, value) = parser.readHeader("Testing: Hello\r\n World\r\n Yes")!!
+        val (name, value) = parser.readHeader("Testing: Hello\r\n World\r\n Yes")
         assertEquals("Testing", name)
         assertEquals("Hello\nWorld\nYes", value)
     }
 
     @Test
     fun `parse multi-line header with tab`() {
-        val (name, value) = parser.readHeader("Testing: Hello\r\n\tWorld\r\n\tYes")!!
+        val (name, value) = parser.readHeader("Testing: Hello\r\n\tWorld\r\n\tYes")
         assertEquals("Testing", name)
         assertEquals("Hello\nWorld\nYes", value)
     }

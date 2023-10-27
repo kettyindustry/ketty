@@ -15,8 +15,7 @@ class Http11ResponseParser : Http11ResponseFormat {
         return statusCode to reasonPhrase
     }
 
-    override fun readHeader(line: String): Pair<String, String>? {
-        if (line.isEmpty()) return null
+    override fun readHeader(line: String): Pair<String, String> {
         val separatorIndex = line.indexOf(":").takeIf { it != -1 } ?: error("Invalid message-header : `$line`")
 
         val name = line.substring(0, separatorIndex)
