@@ -20,6 +20,7 @@ import kotlin.test.fail
 class MockCallbackTest {
     private val expectedHost = "127.0.0.1"
     private val expectedPort = 443
+    private val expectedTls = true
 
     /**
      * Ensure that [MockCallback.mockConnection] is invoked with the right parameters and only one time per [MockHttpClient.connect] invocation
@@ -29,21 +30,21 @@ class MockCallbackTest {
         val callback = object : MockCallback {
             var mocked = false
 
-            override fun mockConnection(host: String, port: Int) {
+            override fun mockConnection(host: String, port: Int, tls: Boolean) {
                 assertFalse(mocked)
                 assertEquals(expectedHost, host)
                 assertEquals(expectedPort, port)
+                assertEquals(expectedTls, tls)
                 mocked = true
             }
 
-            override fun mockRequest(request: HttpRequestData): MockHttpResponseData =
-                fail("Should not mock request")
+            override fun mockRequest(request: HttpRequestData): MockHttpResponseData = fail("Should not mock request")
         }
 
         assertFalse(callback.mocked)
         MockHttpClient(callback).use { httpClient ->
             assertFalse(callback.mocked)
-            httpClient.connect(expectedHost, expectedPort).use {
+            httpClient.connect(expectedHost, expectedPort, expectedTls).use {
                 assertTrue(callback.mocked)
             }
         }
@@ -61,7 +62,7 @@ class MockCallbackTest {
         val callback = object : MockCallback {
             var mocked = false
 
-            override fun mockConnection(host: String, port: Int) = fail("Should not mock connection")
+            override fun mockConnection(host: String, port: Int, tls: Boolean) = fail("Should not mock connection")
 
             override fun mockRequest(request: HttpRequestData): MockHttpResponseData {
                 assertFalse(mocked)

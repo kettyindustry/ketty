@@ -14,7 +14,7 @@ fun interface MockCallback {
      * @param [host] [String] - The address host
      * @param [port] [Int] - The address port
      */
-    fun mockConnection(host: String, port: Int) = Unit
+    fun mockConnection(host: String, port: Int, tls: Boolean) = Unit
 
     /**
      * Handle a new HTTP request

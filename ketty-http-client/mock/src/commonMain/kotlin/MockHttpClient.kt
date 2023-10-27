@@ -9,8 +9,8 @@ import io.ketty.http.client.mock.data.MockCallback
  * @param [callback] [MockCallback] - Callback used to handle connections, requests and responses
  */
 class MockHttpClient(private val callback: MockCallback) : HttpClient {
-    override suspend fun connect(host: String, port: Int): HttpConnection {
-        callback.mockConnection(host, port)
+    override suspend fun connect(host: String, port: Int, tls: Boolean): HttpConnection {
+        callback.mockConnection(host, port, tls)
         return MockHttpConnection(callback)
     }
 

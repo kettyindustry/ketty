@@ -5,7 +5,8 @@ package io.ketty.http.client.core
  */
 interface HttpClient : HttpCloseable {
     /**
-     * Connects to [host]:[port]
+     * Connects to [host]:[port].
+     * If [tls] is enabled then a TLS connection is made.
      */
-    suspend fun connect(host: String, port: Int): HttpConnection
+    suspend fun connect(host: String, port: Int, tls: Boolean): HttpConnection
 }
