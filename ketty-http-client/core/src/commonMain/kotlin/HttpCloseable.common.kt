@@ -5,7 +5,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 @OptIn(ExperimentalContracts::class)
-suspend inline fun <R> HttpCloseable.use(action: (HttpCloseable) -> R): R where R : Any {
+suspend inline fun <T, R> T.use(action: (T) -> R): R where T : HttpCloseable, R : Any {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
     }
