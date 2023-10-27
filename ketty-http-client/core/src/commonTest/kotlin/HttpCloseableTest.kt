@@ -6,6 +6,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class HttpCloseableTest {
+    @Test
+    fun `instance equal`() = runTest {
+        val counter = CloseCounter()
+        counter.use {
+            assertEquals(counter, it)
+        }
+    }
+
     /**
      * [HttpCloseable.use] invokes `action` only one time when it returns normally.
      */
@@ -103,9 +111,7 @@ class HttpCloseableTest {
     /**
      * Store invocation count of [close]
      */
-    private class CloseCounter : HttpCloseable {
-        var count = 0
-
+    private data class CloseCounter(var count: Int = 0) : HttpCloseable {
         override suspend fun close() {
             count++
         }
