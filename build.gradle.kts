@@ -21,6 +21,5 @@ subprojects {
     configure<KotlinMultiplatformExtension> {
         jvm()
         linuxX64()
-        mingwX64()
     }
 }
