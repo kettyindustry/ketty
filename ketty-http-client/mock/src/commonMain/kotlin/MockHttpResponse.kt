@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  */
 class MockHttpResponse(private val response: MockHttpResponseData) : HttpResponse {
     override suspend fun status(): Pair<Int, String> = response.statusCode to response.statusReason
-    override suspend fun headers(): Flow<Pair<String, String>> = response.headers
+    override suspend fun headers(): List<Pair<String, String>> = response.headers
     override suspend fun body(): ByteReadChannel = response.body?.let { ByteReadChannel(it) } ?: ByteReadChannel.Empty
 
     override suspend fun close() = Unit

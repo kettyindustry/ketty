@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 data class MockHttpResponseData(
     val statusCode: Int,
     val statusReason: String,
-    val headers: Flow<Pair<String, String>>,
+    val headers: List<Pair<String, String>>,
     val body: String?
 )

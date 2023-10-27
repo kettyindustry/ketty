@@ -57,7 +57,7 @@ class MockCallbackTest {
     @Test
     fun request() = runTest {
         val expectedRequest = HttpRequestData("GET", "/")
-        val expectedResponse = MockHttpResponseData(200, "OK", emptyFlow(), "testing")
+        val expectedResponse = MockHttpResponseData(200, "OK", emptyList(), "testing")
 
         val callback = object : MockCallback {
             var mocked = false
