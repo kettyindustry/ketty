@@ -14,6 +14,5 @@ class MockHttpResponse(private val response: MockHttpResponseData) : HttpRespons
     override suspend fun headers(): Flow<Pair<String, String>> = response.headers
     override suspend fun body(): ByteReadChannel = response.body?.let { ByteReadChannel(it) } ?: ByteReadChannel.Empty
 
-    // TODO : Body
     override suspend fun close() = Unit
 }
