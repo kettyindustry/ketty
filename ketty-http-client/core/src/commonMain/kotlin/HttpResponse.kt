@@ -7,6 +7,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface HttpResponse : HttpCloseable {
     /**
+     * Receive status
+     */
+    suspend fun status(): Pair<Int, String>
+
+    /**
      * Receive headers in a [Flow]
      */
     suspend fun headers(): Flow<Pair<String, String>>
