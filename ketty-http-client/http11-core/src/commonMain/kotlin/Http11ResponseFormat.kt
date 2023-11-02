@@ -12,9 +12,9 @@ interface Http11ResponseFormat {
     fun readStatusLine(line: String): Pair<Int, String>
 
     /**
-     * Read one `message-header` entity ([RFC 2068, Section 4.2](https://www.rfc-editor.org/rfc/rfc2068#section-4.2))
+     * Read all `message-header` entities ([RFC 2068, Section 4.2](https://www.rfc-editor.org/rfc/rfc2068#section-4.2))
      *
-     * @return [Pair] The read header, or `null` if a new line is reached
+     * @return [List] All read headers. Maybe empty.
      */
-    fun readHeader(line: String): Pair<String, String>?
+    fun readHeaders(lines: List<String>): List<Pair<String, String>>
 }
