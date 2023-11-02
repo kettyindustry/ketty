@@ -35,7 +35,5 @@ class Http11ResponseParser : Http11ResponseFormat {
         }
 }
 
-private const val CR: Char = 13.toChar()
-private const val LF: Char = 10.toChar()
 private const val SP: Char = 32.toChar()
 private const val HT: Char = 9.toChar()
